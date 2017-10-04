@@ -1,0 +1,19 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "taskName": "Compile",
+            "type": "shell",
+            "command": "g++",
+            "args": [
+                "-g", "-Wall", "-std=c++11", "-c", "${relativeFile}", "-o", "${workspaceRoot}/obj/${fileBasenameNoExtension}.o"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+    ]
+}
