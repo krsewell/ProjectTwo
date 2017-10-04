@@ -5,17 +5,31 @@
 #ifndef MAIN_H_INCL_GUARD
 #define MAIN_H_INCL_GUARD
 
-#include <iostream>
-#include <fstream>
 #include "fileInput.h"
 
-using namespace std;
+#include <iostream>
+#include <fstream>
+
+// Per Google C++ Style Guide
+//using namespace std;  // Should not be used.
+using std::fstream;
+using std::ios;
+
 
 #endif
 
-int main() {
-  
+struct Contestant {
+  long int ID;  //Unique Identifier
+  char * Qptr;  //Pointer for Ans Array, init after size is known.
+  int size;     //initilizer for Q
+  Qptr = createCharArray(size);
+  int correct;  //Number of correct Ans
+  double score; //Percentage correct    
+};
 
+
+
+int main() {
   /*
      open anwsers.txt file
      loop find delimiting keyword
@@ -26,7 +40,7 @@ int main() {
 
      open contestants.txt file
      get number of line/contestants
-     store number into SIZE var
+     store number into ansPool var
      close contestants.txt
 
      open contestants.txt file
@@ -34,15 +48,38 @@ int main() {
       read each anwser into secondary array
      close contestants.txt
    */
-  fstream answers;
-  answers.open("Answers.txt", ios::in);
-  int size = 0;
-  size = getKeywordCount(answers);
+  fstream ansFile;
+  ansFile.open("Answers.txt", ios::in);
   
+  fstream contestantFile;
+  contestantFile.open("Contestants.txt", ios::in);
+
+  int ansPool = 0;
+  ansPool = getKeywordCount(ansFile);
   
   char * answerKey;
-  answerKey = createCharArray(size);
+  answerKey = createCharArray(ansPool);
   
+  int i = 0;
+  while (i < ansPool) {
+    int index = getAnsIndexValue(ansFile);
+    char data = getAnsDataValue(ansFile);
+    *(answerKey + index) = data;
+  }   
+  ansFile.close();
+  
+  // Find number of contestants
+  int contPool;
+  contPool = getContestantCount(contestantFile);
+  
+  // Create contestant profiles
+  for (int i = 0; i < contPool; i++) {
+    Contestant ("Contest" + i);
+  }
+
+
+
+
 
   return 0;
 }

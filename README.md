@@ -1,4 +1,4 @@
-Due Date: 10/10/2017 at 11:55PM
+Due Date: 10/07/2017 at 11:55PM
 
 Submission and Grading: All programs are to be submitted in eLearning.
 Projects submitted after the due date are subject to the late penalties described

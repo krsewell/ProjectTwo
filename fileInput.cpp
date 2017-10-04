@@ -10,6 +10,8 @@
 #include <string>
 #include <algorithm>
 
+// Per Google C++ Style Guide
+//using namespace std;  // Should not be used.
 using std::cerr;
 using std::cout;
 using std::endl;
@@ -17,10 +19,8 @@ using std::string;
 using std::toupper;
 using std::transform;
 using std::ios;
+using std::fstream;
 
-const char *ANWSERS    = "Answers.txt";
-const char *CONTESTANT = "Contestants.txt";
-const char *KEYWORD    = "Question";
 
 string str_toupper(string str) {
   transform(str.begin(), str.end(), str.begin(), 
@@ -67,7 +67,7 @@ int getKeywordCount(fstream& file) {
         *ptr = *ptr + 1;
         //temp.substr(pos,sizeof(KEYWORD));
         //----------------error checking--------------------
-        cout << "counter: " << *ptr << endl;
+        //cout << "counter: " << *ptr << endl;
       }
       
     }
@@ -81,12 +81,20 @@ int getKeywordCount(fstream& file) {
 }
 
 int getAnsIndexValue(fstream& file) {
+  string temp;
+  
   if (file.eof()) {
     file.clear();
     file.seekg(0,ios::beg);
   }
+  while (!file.eof()) {
 
-
+    
+    int pos = temp.find(KEYWORD);
+    pos += sizeof(KEYWORD);
+    temp.at(pos);
+  }
+  return -1;
 }
 
 char* createCharArray(int size) {
