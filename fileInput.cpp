@@ -151,30 +151,30 @@ Contestant* parseContestants(fstream& file,int keySize) {
       for (int i = 0; i < size; i++) {
         //cout << "size: " << size << endl;
         //cout << "i: " << i << endl;
-        string temp;
+        string temp; 
         file >> temp;  // pass first string from file
-
-        long int ID;
+        
+        long int ID; 
         ID = stol(temp); 
         // convert ID into long. will throw exception if unable to parse 
-
+        
         // Setup Basic Contestant Info
-        (ptr + i)->ID = ID;
-        (ptr + i)->size = sizeof(keySize);
+        (ptr + i)->ID = ID; 
+        (ptr + i)->size = sizeof(keySize); 
         (ptr + i)->Qptr = nullptr; 
 
         //initialize question array
-        (ptr + i)->Qptr = createCharArray((ptr + i)->size);
+        (ptr + i)->Qptr = createCharArray((ptr + i)->size); 
 
         //j is the element number to store a contestants answers
-        char ch;
+        char ch; 
         //cout << "keySize: " << keySize << endl;
         for (int j = 0; j < keySize; j++) {
           //cout << "j: " << j << endl;
-          file.seekg(1,ios::cur);       // advance cursor past space
-          file.get(ch);                 // grab contestant answer
+          file >> ch;                   // grab contestant answer
+                        
           *((ptr + i)->Qptr + j) = ch;  // store in array
-        }
+        } 
       }
 
     } catch (...) {
