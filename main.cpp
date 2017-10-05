@@ -24,7 +24,7 @@ using std::string;
 
 // declarations
 
-void releasePtr(int ,Contestant* ,char* );
+void releasePtr(Contestant* ,char* );
 
 
 #endif
@@ -70,16 +70,8 @@ int main() {
 }
 
 
-//causes segmentation fault currently
-void releasePtr(int contSize,Contestant* ptrContestant,char* answerKey) {
-  //delete all contestant ans arrays
-  for (int i = 0; i < contSize; i++) {  
-    delete [] (ptrContestant + i)->Qptr;
-  }
-  //delete all contestant missed arrays
-  for (int i = 0; i < contSize; i++) {
-    delete [] (ptrContestant + i)->Mptr;
-  }
+void releasePtr(Contestant* ptrContestant,char* answerKey) {
+
   //delete all contestant constructs
   delete [] ptrContestant;
 
