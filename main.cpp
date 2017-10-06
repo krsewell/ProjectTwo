@@ -12,6 +12,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <iomanip>
 
 // Per Google C++ Style Guide
 //using namespace std;  // Should not be used.
@@ -19,8 +20,7 @@ using std::fstream;
 using std::ios;
 using std::stol;
 using std::string;
-
-
+using std::fixed;
 
 // declarations
 
@@ -60,19 +60,45 @@ int main() {
   if (next) {
     cout << "Contestant Database Created" << endl;
   }
-
+  //--------------------------------------------------//
+  // Compair Contestant Data with AnswerKey and grade //
+  //--------------------------------------------------//
+  for (int i = 0; i < contSize; i++) {
+    char cvar;
+    char avar;
+    int mInd = 0;
+    //initialize Mptr with max value
+    (ptrContestant + i)->Mptr = createIntArray(keySize);
+    for (int j = 0; j < keySize; j++) {
+      cvar = *((ptrContestant + i)->Qptr + j);
+      avar = *(answerKey + j);
+      if (!compareChar(cvar,avar)) {  // If contestant missed problem store the index value in int Mptr[]
+        *((ptrContestant + i)->Mptr + mInd) = j;
+        mInd++;
+      }
+      (ptrContestant + i)->incorrect = mInd + 1;
+      (ptrContestant + i)->correct = keySize - (ptrContestant + i)->incorrect;
+      (ptrContestant + i)->score = double((ptrContestant + i)->correct)/keySize;
+    }
+  }
+  
+  //quick test
+  for (int i = 0; i < contSize; i++) {
+    cout  << "Score for: " << (ptrContestant + i)->ID << "is " << fixed << std::setprecision(2) 
+          << (ptrContestant + i)->score << endl;
+  }
 
 
 
   //exit and clean up
-  releasePtr(contSize,ptrContestant,answerKey);
+  releasePtr(ptrContestant,answerKey);
   return 0;
 }
 
 
 void releasePtr(Contestant* ptrContestant,char* answerKey) {
 
-  //delete all contestant constructs
+  //delete all contestant constructs. dynamic arrays within construct taken care of by destructor.
   delete [] ptrContestant;
 
   //delete answerKey

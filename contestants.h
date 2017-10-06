@@ -7,7 +7,8 @@ struct Contestant {
     int size;       //initilizer for Q and total problem set.
     int * Mptr;     //Array for missed problems list
     int incorrect;  //initializer for M and number of incorrect Ans
-    double score;   //Percentage correct    
+    double score;   //Percentage correct
+    int correct;    //    
   
     ~Contestant() {
       delete [] Qptr;
