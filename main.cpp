@@ -21,6 +21,9 @@ using std::ios;
 using std::stol;
 using std::string;
 using std::fixed;
+using std::equal;
+using std::begin;
+using std::end;
 
 // declarations
 
@@ -38,7 +41,7 @@ int main() {
   int keySize;
   if (openInFile(ansFile, ANSWERS)) {
     keySize = getKeywordCount(ansFile); //pass number of questions for later
-    answerKey = parseAnswers(ansFile);
+    answerKey = parseAnswers(ansFile,keySize);
   }
   bool next = closeInFile(ansFile,ANSWERS);
   
@@ -49,11 +52,11 @@ int main() {
   // Get Contestant Data                             //
   //-------------------------------------------------//
   fstream contestFile;
-  Contestant* ptrContestant;
-  int contSize;
+  Contestant* cPtr;
+  int cSize;
   if (openInFile(contestFile, CONTESTANTS)) {
-    contSize = getContestantCount(contestFile); //needed later for exit code
-    ptrContestant = parseContestants(contestFile,keySize);
+    cSize = getContestantCount(contestFile); //needed later for exit code
+    cPtr = parseContestants(contestFile,keySize);
   }
   next = closeInFile(contestFile,CONTESTANTS);
 
@@ -63,43 +66,19 @@ int main() {
   //--------------------------------------------------//
   // Compair Contestant Data with AnswerKey and grade //
   //--------------------------------------------------//
-  for (int i = 0; i < contSize; i++) {
-    char cvar;
-    char avar;
-    int mInd = 0;
-    //initialize Mptr with max value
-    (ptrContestant + i)->Mptr = createIntArray(keySize);
-    for (int j = 0; j < keySize; j++) {
-      cvar = *((ptrContestant + i)->Qptr + j);
-      avar = *(answerKey + j);
-      if (!compareChar(cvar,avar)) {  // If contestant missed problem store the index value in int Mptr[]
-        *((ptrContestant + i)->Mptr + mInd) = j;
-        mInd++;
-      }
-      (ptrContestant + i)->incorrect = mInd + 1;
-      (ptrContestant + i)->correct = keySize - (ptrContestant + i)->incorrect;
-      (ptrContestant + i)->score = double((ptrContestant + i)->correct)/keySize;
-    }
-  }
-  
-  //quick test
-  for (int i = 0; i < contSize; i++) {
-    cout  << "Score for: " << (ptrContestant + i)->ID << "is " << fixed << std::setprecision(2) 
-          << (ptrContestant + i)->score << endl;
-  }
-
+  gradeContestants(cPtr,cSize,answerKey,keySize);
 
 
   //exit and clean up
-  releasePtr(ptrContestant,answerKey);
+  releasePtr(cPtr,answerKey);
   return 0;
 }
 
 
-void releasePtr(Contestant* ptrContestant,char* answerKey) {
+void releasePtr(Contestant* cPtr,char* answerKey) {
 
   //delete all contestant constructs. dynamic arrays within construct taken care of by destructor.
-  delete [] ptrContestant;
+  delete [] cPtr;
 
   //delete answerKey
   delete [] answerKey;

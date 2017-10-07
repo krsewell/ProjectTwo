@@ -16,6 +16,7 @@ bool compareChar(char, char);
 char *createCharArray(int);
 int *createIntArray(int);
 Contestant* createContArray(int);
+void gradeContestants(Contestant*,int,char*,int);
 
 
 #endif

@@ -51,3 +51,34 @@ Contestant* createContArray(int size) {
   }
   return ptr;
 }
+
+void gradeContestants(Contestant* cPtr, int cSize, char* aPtr, int aSize) {
+  for (int i = 0; i < cSize; i++) {
+    //for each contestant
+      char cvar;
+      char avar;
+      int mInd = 0;
+      bool hundredPercent = true;
+      
+      for (int j = 0; j < aSize; j++) {
+      //for each answer given by contestant
+        cvar = *((cPtr + i)->Qptr + j);
+        avar = *(aPtr + j);
+        if (!compareChar(cvar,avar)) {  
+        // If contestant missed problem store the index value in int Mptr[]
+          *((cPtr + i)->Mptr + mInd) = j;
+          hundredPercent = false; //perfect score fuse/flag
+          mInd++;
+        }
+      }
+      
+      if (hundredPercent) {
+        //Special case either contestant missed none or one.
+        (cPtr + i)->incorrect = 0;
+      } else {
+        (cPtr + i)->incorrect = mInd;
+      }
+      (cPtr + i)->correct = aSize - (cPtr + i)->incorrect;
+      (cPtr + i)->score = double((cPtr + i)->correct)*100.0/aSize;
+    }  
+}

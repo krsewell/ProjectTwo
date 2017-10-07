@@ -32,7 +32,7 @@ bool closeInFile(fstream&, string);
 
 bool findKeyword(fstream&, string);
 int getKeywordCount(fstream&);
-char * parseAnswers(fstream&);
+char * parseAnswers(fstream&,int);
 int getContestantCount(fstream& file);
 Contestant* parseContestants(fstream&,int);
 

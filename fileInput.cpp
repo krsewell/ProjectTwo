@@ -51,7 +51,6 @@ int getKeywordCount(fstream& file) {
   if (file) {
     string temp;
     int counter = 0;
-    int * ptr = &counter;
 
     while (!file.eof()) {
       // Get String and check for Keyword
@@ -59,10 +58,7 @@ int getKeywordCount(fstream& file) {
       int pos = temp.find(KEYWORD);
       // If found pull just the keyword for comparison
       if (pos >= 0) {
-        *ptr = *ptr + 1;
-        //temp.substr(pos,sizeof(KEYWORD));
-        //----------------error checking--------------------
-        //cout << "counter: " << *ptr << endl;
+        counter++;
       }
       
     }
@@ -70,6 +66,7 @@ int getKeywordCount(fstream& file) {
     
     file.clear();
     file.seekg(0,ios::beg);
+    //cout << "counter: " << counter << endl;
     return counter;
     
 
@@ -80,22 +77,22 @@ int getKeywordCount(fstream& file) {
 
 }
 
-char * parseAnswers(fstream& file) {
+char * parseAnswers(fstream& file, int size) {
   if (file) {
     // set up array
-    int size = getKeywordCount(file);
     cout << "Question Count is: " << size << endl;
     char * ptr;
     ptr = createCharArray(size);
-
-    while (findKeyword(file,KEYWORD)) {
-      string temp;
+    string temp;
+    
+    while (!file.eof()) {
       int index;
       try {
-        
-        file >> temp;
-        //next temp value should be the question number
-        index = stoi(temp) - 1;
+        if (findKeyword(file,KEYWORD)) {
+          file >> temp;
+          //next temp value should be the question number
+          index = stoi(temp) - 1;
+        }
       } catch (...) {
         cerr << "Answer File Format incorrect" << endl;
         exit(-1);
@@ -163,8 +160,9 @@ Contestant* parseContestants(fstream& file,int keySize) {
         (ptr + i)->size = sizeof(keySize); 
         (ptr + i)->Qptr = nullptr; 
 
-        //initialize question array
-        (ptr + i)->Qptr = createCharArray((ptr + i)->size); 
+        //initialize question and missed array
+        (ptr + i)->Qptr = createCharArray((ptr + i)->size);
+        (ptr + i)->Mptr = createIntArray((ptr + i)->size);
 
         //j is the element number to store a contestants answers
         char ch; 
