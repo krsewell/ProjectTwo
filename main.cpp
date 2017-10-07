@@ -73,12 +73,14 @@ int main() {
   cout << endl;
   if (openOutFile(report, temp)) {
     for (int i = 0; i < cSize; i++) {
-      generateContestantReport(i,report);
+      generateContestantReport(cPtr,i,answerKey,report);
     }
-    generateSummary(report);
+    
+    double * scoreArray = getScores(cPtr,cSize);
+    generateSummary(report,scoreArray,cSize);
   }
   if (closeOutFile(report, temp)) {
-    cout << "Report " << temp << "generated successfully" << endl;
+    cout << "Report " << temp << " generated successfully" << endl;
   }
 
   //exit and clean up

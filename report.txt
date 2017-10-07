@@ -1,0 +1,49 @@
+Contestant ID: 1014567890
+Score: 90
+Missed Problems: 
+     3.)  A Answer:C
+
+Contestant ID: 1024567890
+Score: 40
+Missed Problems: 
+     1.)  B Answer:A
+     2.)  A Answer:D
+     5.)  B Answer:C
+     7.)  B Answer:A
+     8.)  D Answer:C
+     9.)  B Answer:A
+
+Contestant ID: 1034567890
+Score: 60
+Missed Problems: 
+     1.)  C Answer:A
+     8.)  B Answer:C
+     9.)  B Answer:A
+    10.)  C Answer:B
+
+Contestant ID: 1044567890
+Score: 50
+Missed Problems: 
+     1.)  B Answer:A
+     2.)  A Answer:D
+     3.)  A Answer:C
+     5.)  A Answer:C
+     7.)  C Answer:A
+
+Contestant ID: 1054567890
+Score: 60
+Missed Problems: 
+     2.)  B Answer:D
+     3.)  A Answer:C
+     8.)  A Answer:C
+    10.)  C Answer:B
+
+Contestant ID: 1064567890
+Score: 90
+Missed Problems: 
+     3.)  A Answer:C
+
+Summary
+Median Score: 60.00, 60.00
+Mean Score: 65.00
+Mode of Scores: 60.00, 90.00

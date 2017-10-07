@@ -84,23 +84,55 @@ void gradeContestants(Contestant* cPtr, int cSize, char* aPtr, int aSize) {
 }
 
 
-double findMean(double* ptr, int size) {
-  // sum all numbers in a set then divide by its size
-
+string findMean(double* ptr, int size) {
+  stringstream strs;
+  double avg = 0;
+  for (int i = 0; i < size; i++) {
+    avg += *(ptr + i); 
+  }
+  avg = avg/static_cast<double>(size);
+  strs << fixed << setprecision(2) << avg;
+  return strs.str();
 }
 
-double findMode(double* ptr, int size) {
+string findMode(double* ptr, int size) {
   //Number accuring the most within a set
-  //If the list is sorted then int counter = 1
-  //check number and store is first == second?
-  //if yes counter++
-  //if no store counter and reset counter
-  //move index + 1
-  //repeat until index last.
+  stringstream strs;
+  int counter = 1;
+  int maxcount = 0;
+  bool notfirstRun = false;  
 
-  //find highest counter stored.
-  //all values before that element equal the index of the mode
+  for (int i = 0; i < size; i++) {
+    if (*(ptr + i) == *(ptr + (i+1))) {
+      counter++;
+    } 
+    else if (counter > maxcount) {
+      maxcount = counter;
+      counter = 1;
+    }
+    else {
+      counter = 1;
+    }
+  }
 
+  for (int i = 0; i < size; i++) {
+    if (*(ptr + i) == *(ptr + (i+1))) {
+      counter++;
+    }
+    else if (counter == maxcount) {
+      if (notfirstRun) {
+        strs << ", ";
+      }
+      strs << fixed << setprecision(2) << *(ptr + i);
+      notfirstRun = true;
+      counter = 1;
+    }
+    else {
+      counter = 1;
+    }
+  }
+
+  return strs.str();
 }
 
 string findMedian(double* ptr, int size) {
@@ -113,9 +145,11 @@ string findMedian(double* ptr, int size) {
   if (size % 2 == 0) {
     index++;
     med2 = *(ptr+index);
-    strs << med1 << ", " << med2;
+    strs << fixed << setprecision(2) << med1;
+    strs << ", ";
+    strs << fixed << setprecision(2) << med2;
   } else {
-    strs << med1;
+    strs << fixed << setprecision(2) << med1;
   }
   return strs.str();
 }
