@@ -1,9 +1,9 @@
 /*
- *   kjs170430_Project2/fileInput.cpp
+ *   kjs170430_Project2/file.cpp
  *   Copyright 2017, Kristopher Sewell, All rights reserved.
  */
 
-#include "fileInput.h"
+#include "file.h"
 
 //Global Constants
 const char *ANSWERS     = "Answers.txt";
@@ -30,6 +30,26 @@ bool closeInFile(fstream& file, string name) {
     return true;
   }
 
+}
+
+bool openOutFile(fstream& file, string name) {
+  file.open(name,ios::app);
+  if (file.fail()) {
+    cerr << "Error Creating File: " << name << endl;
+    return false;
+  } else {
+    return true;
+  }
+}
+
+bool closeOutFile(fstream& file, string name) {
+  file.close();
+  if (file.is_open()) {
+    cerr << "Error Closing File: " << name << endl;
+    return false;
+  } else {
+    return true;
+  }
 }
 
 bool findKeyword(fstream& file, string check) {

@@ -1,14 +1,14 @@
 /*
- *   kjs170430_Project2/fileInput.h
+ *   kjs170430_Project2/file.h
  *   Copyright 2017, Kristopher Sewell, All rights reserved.
  */
 
-#ifndef FILEINPUT_H_INCL_GUARD
-#define FILEINPUT_H_INCL_GUARD
+#ifndef FILE_H_INCL_GUARD
+#define FILE_H_INCL_GUARD
 
-#include "contestants.h"
-#include "constants.h"
-#include "tools.h"
+#include "contestant.h"
+#include "constant.h"
+#include "tool.h"
 
 #include <iostream>
 #include <fstream>
@@ -29,6 +29,8 @@ using std::stol;
 
 bool openInFile(fstream&, string);
 bool closeInFile(fstream&, string);
+bool openOutFile(fstream&, string);
+bool closeOutFile(fstream&, string);
 
 bool findKeyword(fstream&, string);
 int getKeywordCount(fstream&);

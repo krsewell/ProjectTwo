@@ -1,5 +1,5 @@
-#ifndef CONTESTANTS_H_INCL_GUARD
-#define CONTESTANTS_H_INCL_GUARD
+#ifndef CONTESTANT_H_INCL_GUARD
+#define CONTESTANT_H_INCL_GUARD
 
 struct Contestant {
     long int ID;    //Unique Identifier

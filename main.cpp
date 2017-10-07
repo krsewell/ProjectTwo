@@ -5,9 +5,10 @@
 #ifndef MAIN_H_INCL_GUARD
 #define MAIN_H_INCL_GUARD
 
-#include "fileInput.h"
-#include "contestants.h"
-#include "constants.h"
+#include "file.h"
+#include "contestant.h"
+#include "constant.h"
+#include "report.h"
 
 #include <iostream>
 #include <fstream>
@@ -21,9 +22,8 @@ using std::ios;
 using std::stol;
 using std::string;
 using std::fixed;
-using std::equal;
-using std::begin;
-using std::end;
+using std::cin;
+
 
 // declarations
 
@@ -63,11 +63,23 @@ int main() {
   if (next) {
     cout << "Contestant Database Created" << endl;
   }
-  //--------------------------------------------------//
-  // Compair Contestant Data with AnswerKey and grade //
-  //--------------------------------------------------//
-  gradeContestants(cPtr,cSize,answerKey,keySize);
 
+  gradeContestants(cPtr,cSize,answerKey,keySize);
+  
+  string temp;
+  fstream report;
+  cout << "Please enter a filename for report: ";
+  cin >> temp;
+  cout << endl;
+  if (openOutFile(report, temp)) {
+    for (int i = 0; i < cSize; i++) {
+      generateContestantReport(i,report);
+    }
+    generateSummary(report);
+  }
+  if (closeOutFile(report, temp)) {
+    cout << "Report " << temp << "generated successfully" << endl;
+  }
 
   //exit and clean up
   releasePtr(cPtr,answerKey);

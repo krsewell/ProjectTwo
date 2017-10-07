@@ -2,7 +2,7 @@
  *   kjs170430_Project2/tools.cpp
  *   Copyright 2017, Kristopher Sewell, All rights reserved.
  */
-#include "tools.h"
+#include "tool.h"
 
 bool compareChar(char var1, char var2) {
   if (var1 > 96) {
@@ -81,4 +81,76 @@ void gradeContestants(Contestant* cPtr, int cSize, char* aPtr, int aSize) {
       (cPtr + i)->correct = aSize - (cPtr + i)->incorrect;
       (cPtr + i)->score = double((cPtr + i)->correct)*100.0/aSize;
     }  
+}
+
+
+double findMean(double* ptr, int size) {
+  // sum all numbers in a set then divide by its size
+
+}
+
+double findMode(double* ptr, int size) {
+  //Number accuring the most within a set
+  //If the list is sorted then int counter = 1
+  //check number and store is first == second?
+  //if yes counter++
+  //if no store counter and reset counter
+  //move index + 1
+  //repeat until index last.
+
+  //find highest counter stored.
+  //all values before that element equal the index of the mode
+
+}
+
+string findMedian(double* ptr, int size) {
+  //Middle value in a given sorted set
+  stringstream strs;
+  double med1, med2;
+  int index = (size/2)-1;
+  med1 = *(ptr+index);
+
+  if (size % 2 == 0) {
+    index++;
+    med2 = *(ptr+index);
+    strs << med1 << ", " << med2;
+  } else {
+    strs << med1;
+  }
+  return strs.str();
+}
+
+void quicksortArray(double* ptr, int start, int end) {
+  int pivot;
+
+  if (start < end) {
+    pivot = partition(ptr,start,end);
+    quicksortArray(ptr,start,pivot-1);
+    quicksortArray(ptr,pivot+1,end);
+  }
+}
+
+int partition(double* ptr, int start, int end) {
+  int pivotData,pivotInd,mid;
+
+  mid = (start + end)/2;
+  swapElement(ptr,start,mid);
+  pivotInd = start;
+  pivotData = *(ptr+start);
+
+  for (int i = start + 1; i <=end; i++) {
+    if (*(ptr+i) < pivotData) {
+      pivotInd++;
+      swapElement(ptr,pivotInd,i);
+    }
+  }
+  swapElement(ptr,start,pivotInd);
+  return pivotInd;
+}
+
+void swapElement(double* ptr, int aInd, int bInd) {
+  double temp;
+  temp = *(ptr + aInd);
+  *(ptr + aInd) = *(ptr + bInd);
+  *(ptr + bInd) = temp;
 }

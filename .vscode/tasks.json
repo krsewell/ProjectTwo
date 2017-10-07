@@ -8,12 +8,21 @@
             "type": "shell",
             "command": "g++",
             "args": [
-                "-g", "-Wall", "-std=c++11", "-c", "${relativeFile}", "-o", "${workspaceRoot}/obj/${fileBasenameNoExtension}.o"
+                "-g", "-Wall", "-std=c++11", "*.cpp", "-o", "${workspaceRoot}/bin/output"
             ],
             "group": {
                 "kind": "build",
                 "isDefault": true
             }
+        },
+        {
+            "taskName": "Build Objects",
+            "type": "shell",
+            "command": "g++",
+            "args": [
+                "-g", "-Wall", "-std=c++11","-c", "*.cpp" 
+            ],
+            "group": "build"
         }
     ]
 }
